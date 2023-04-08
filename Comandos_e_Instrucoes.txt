@@ -1,13 +1,26 @@
 Iniciando o container do Airflow (Lembre de iniciar na estrutura de diretórios correta)
 
-docker run -d -p 8080:8080 -v "$PWD/dags:/opt/airflow/dags/" \
---entrypoint=/bin/bash \
+docker container run -d -p 8080:8080 -v "$PWD/dags:/opt/airflow/dags/" 
+--entrypoint=/bin/bash 
+--name airflow apache/airflow:2.1.1-python3.8 
+-c '(airflow db init && 
+    airflow users create --username admin --password medeiros --firstname Raphael --lastname Medeiros --role Admin --email medeiros.ph@gmail.com
+    ); 
+airflow webserver & 
+airflow scheduler 
+'
+
+Caminho: /Users/raphaelsmedeiros/Documents/GitHub/Apache-AirFlow/dags
+
+
+docker run -d -p 8080:8080 -v "$PWD/dags:/opt/airflow/dags/" \ 
+--entrypoint=#!/bin/bash  \
 --name airflow apache/airflow:2.1.1-python3.8 \
 -c '(airflow db init && \
-    airflow users create --username admin --password medeiros --firstname Raphael --lastname Medeiros --role Admin --email medeiros.ph@gmail.com
-    ); \
+airflow users create --username admin --password medeiros --firstname Raphael --lastname Medeiros --role Admin --email admin@example.org
+); \
 airflow webserver & \
 airflow scheduler \
 '
 
-Caminho: C:\Users\Medeiros\Documents\GitHub\Apache-AirFlow\dags
+docs.docker.com/compose/
